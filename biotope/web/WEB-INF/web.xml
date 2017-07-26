@@ -31,6 +31,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>jpeg</servlet-name>
+        <servlet-class>JpegProc</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>graphviz</servlet-name>
         <servlet-class>GraphvizProc</servlet-class>
     </servlet>
