@@ -120,10 +120,7 @@ public final class Logger extends MetaProc {
                       HttpServletResponse response)
 	throws IOException, ServletException {
 	
-	MetaEval me = new MetaEval();
 	try {
-	    me.con = source.getConnection();
-	    me.con.setAutoCommit(false);
 	    response.setCharacterEncoding("UTF-8");
 	    String partition = request.getRequestURI().replace(request.getContextPath() + request.getServletPath(), "").replace("/", "");
 	    if (partition.equals("")) {
@@ -148,17 +145,8 @@ public final class Logger extends MetaProc {
 	    response.getOutputStream().write((getRootURL(request) + "/" + partition + "/" + hash).getBytes("UTF-8"));
 	    response.getOutputStream().flush();
 	}
-	catch (SQLException e) {
-            try { me.con.rollback(); } catch (SQLException ex) { throw new IOException(ex); }
-	    throw new IOException(e);
-	}
 	catch (InterruptedException ie) {
 	    throw new IOException(ie);
-	}
-	finally {
-	    if (me.con != null) {
-		try { me.con.close(); } catch (SQLException e) {}
-	    }
 	}
     }
 }
