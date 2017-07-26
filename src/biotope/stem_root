@@ -55,7 +55,7 @@
   <b><a href="(location.schema_png)">Databasschema</a></b> - Visa databasens relationer.
 
   <p>
-  <b><a href="/logger">Logga</a></b> - &AUML;ndra och &aring;ngra &auml;ndringar i
+  <b><a href="/logger">Logga</a></b> - &Auml;ndra och &aring;ngra &auml;ndringar i
   relationer mellan entiteter och v&auml;rden.
 
   <p>
@@ -67,10 +67,10 @@
   arkivet.
 
   <p>
-  <b><a href="/account">Konto</a></b> - &AUML;ndra l&ouml;senord.
+  <b><a href="/account">Konto</a></b> - &Auml;ndra l&ouml;senord.
 
   <p>
-  <b><a href="/reset">&ARING;terst&auml;ll l&ouml;senord</a></b> - Om du har gl&ouml;mt det.
+  <b><a href="/reset">&Aring;terst&auml;ll l&ouml;senord</a></b> - Om du har gl&ouml;mt det.
   </div>
 
   (stem_footer)
