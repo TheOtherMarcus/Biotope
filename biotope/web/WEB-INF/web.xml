@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>Biotope</display-name>
+    <description>
+      Serial de|composition engine.
+    </description>
+
+    <context-param>
+      <param-name>logroot</param-name>
+      <param-value>webapps/log</param-value>
+    </context-param>
+
+    <context-param>
+      <param-name>archiveroot</param-name>
+      <param-value>webapps/archive</param-value>
+    </context-param>
+
+    <context-param>
+      <param-name>passfile</param-name>
+      <param-value>../jetty/etc/passwd.properties</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>stem</servlet-name>
+        <servlet-class>MetaProc</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>graphviz</servlet-name>
+        <servlet-class>GraphvizProc</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>exif</servlet-name>
+        <servlet-class>ExifProc</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>logger</servlet-name>
+        <servlet-class>Logger</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>archiver</servlet-name>
+        <servlet-class>Archiver</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>account</servlet-name>
+        <servlet-class>Account</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>reset</servlet-name>
+        <servlet-class>Account</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>stem</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>jpeg</servlet-name>
+        <url-pattern>/jpeg/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>graphviz</servlet-name>
+        <url-pattern>/graphviz/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>exif</servlet-name>
+        <url-pattern>/exif/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>logger</servlet-name>
+        <url-pattern>/logger/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>archiver</servlet-name>
+        <url-pattern>/archiver/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>account</servlet-name>
+        <url-pattern>/account/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reset</servlet-name>
+        <url-pattern>/reset/*</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+      <error-code>401</error-code>
+      <location>/401</location>
+    </error-page>
+
+	
+    <login-config>
+      <auth-method>BASIC</auth-method>
+      <realm-name>Biotope Realm</realm-name>
+    </login-config>
+    
+    <security-role>
+      <role-name>reader</role-name>
+    </security-role>
+
+    <security-role>
+      <role-name>writer</role-name>
+    </security-role>
+
+    <security-constraint>
+      <web-resource-collection>
+	<web-resource-name>Public resources</web-resource-name>
+	<url-pattern>/*</url-pattern>
+	<url-pattern>/archive/stem/*</url-pattern>
+      </web-resource-collection>
+    </security-constraint>
+
+    <security-constraint>
+      <web-resource-collection>
+	<web-resource-name>Writer resources</web-resource-name>
+	<url-pattern>/logger/*</url-pattern>
+	<url-pattern>/archiver/*</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+	<role-name>writer</role-name>
+      </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+      <web-resource-collection>
+	<web-resource-name>Reader resources</web-resource-name>
+	<url-pattern>/jpeg/*</url-pattern>
+	<url-pattern>/graphviz/*</url-pattern>
+	<url-pattern>/exif/*</url-pattern>
+	<url-pattern>/archive/*</url-pattern>
+	<url-pattern>/account/*</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+	<role-name>reader</role-name>
+      </auth-constraint>
+    </security-constraint>
+</web-app>
