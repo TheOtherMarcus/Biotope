@@ -35,19 +35,11 @@
   </div>
 
   <div class="main">
-  <b>Huvudtjänster</b>
+  <b>Huvudtj&auml;nster</b>
 
   <p>
-  <b><a href="/family">Familjealbum</a></b> - Släkten Andersson Tholén
-  i text och bild.
-
-  <p>
-  <b><a href="/familytree">Sl&auml;kttr&auml;d</a></b> - Släkten Andersson Tholén
-  i graphviz format.
-
-  <p>
-  <b><a href="/jpeg">Fotolabbet</a></b> - Beskär, rotera och ändra
-  storlek på bilder.
+  <b><a href="/jpeg">Fotolabbet</a></b> - Besk&auml;r, rotera och ändra
+  storlek p&aring; bilder.
   
   <p>
   <b><a href="/graphviz">Grafgenerator</a></b> - Skapa grafer fr&aring;n graphviz specifikationer.
@@ -57,28 +49,28 @@
   </div>
   
   <div class="main">
-  <b>Stamtjänster</b>
+  <b>Stamtj&auml;nster</b>
 
   <p>
   <b><a href="(location.schema_png)">Databasschema</a></b> - Visa databasens relationer.
 
   <p>
-  <b><a href="/logger">Logga</a></b> - Ändra och ångra ändringar i
-  relationer mellan entiteter och värden.
+  <b><a href="/logger">Logga</a></b> - &AUML;ndra och &aring;ngra &auml;ndringar i
+  relationer mellan entiteter och v&auml;rden.
 
   <p>
-  <b><a href="/archiver">Arkivera</a></b> - Lagra värden i det lokala
+  <b><a href="/archiver">Arkivera</a></b> - Lagra v&auml;rden i det lokala
   arkivet.
 
   <p>
-  <b><a href="/archive">Arkiv</a></b> - Hämta värden från det lokala
+  <b><a href="/archive">Arkiv</a></b> - Hämta v&auml;rden fr&aring;n det lokala
   arkivet.
 
   <p>
-  <b><a href="/account">Konto</a></b> - Ändra lösenord.
+  <b><a href="/account">Konto</a></b> - &AUML;ndra l&ouml;senord.
 
   <p>
-  <b><a href="/reset">Återställ lösenord</a></b> - Om du har glömt det.
+  <b><a href="/reset">&ARING;terst&auml;ll l&ouml;senord</a></b> - Om du har gl&ouml;mt det.
   </div>
 
   (stem_footer)
