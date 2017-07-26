@@ -1,5 +1,5 @@
 # Biotope
-Web Application Server built around the relational data model described in [1]. Text based content, e.g. HTML, Javascript, CSS, GraphViz, JSON is created with the template language described in [2]. Other type of content is created with dedicated Java servlets. Jetty is the default servlet engine. Command line scripts are written in Bash, Python, Make and Ant.
+Web Application Server built around the relational data model described in [[1]]. Text based content, e.g. HTML, Javascript, CSS, GraphViz, JSON is created with the template language described in [[2]]. Other type of content is created with dedicated Java servlets. Jetty is the default servlet engine. Command line scripts are written in Bash, Python, Make and Ant.
 
 ## Installation
 Start the installation with a clone of this repo.
@@ -8,7 +8,7 @@ Start the installation with a clone of this repo.
 git clone https://github.com/TheOtherMarcus/Biotope.git
 ```
 
-Download Jetty [3], extract the archive in the Biotope directory and create a symlink with the name `jetty` to it.
+Download Jetty [[3]], extract the archive in the Biotope directory and create a symlink with the name `jetty` to it.
 
 ```
 cd Biotope
@@ -17,7 +17,7 @@ tar xvf jetty*
 ln -s jetty* jetty
 ```
 
-Enable basic HTTP authentication in Jetty [4]. Edit jetty/etc/jetty.xml and add the following at the bottom.
+Enable basic HTTP authentication in Jetty [[4]]. Edit jetty/etc/jetty.xml and add the following at the bottom.
 
 ```
     <Call name="addBean">
@@ -89,8 +89,8 @@ cd jetty
 java -jar start.jar
 ```
 
-## References
-[1] http://formallanguage.blogspot.se/2015/02/a-distributed-and-extensible-relational.html</br>
-[2] http://formallanguage.blogspot.se/2017/03/makron-macro-language-and-evaluator.html</br>
-[3] http://www.eclipse.org/jetty/</br>
-[4] http://whitehorseplanet.org/gate/topics/documentation/public/howto_jetty_basic_authentication.html</br>
+[#]: References
+[1]: http://formallanguage.blogspot.se/2015/02/a-distributed-and-extensible-relational.html</br>
+[2]: http://formallanguage.blogspot.se/2017/03/makron-macro-language-and-evaluator.html</br>
+[3]: http://www.eclipse.org/jetty/</br>
+[4]: http://whitehorseplanet.org/gate/topics/documentation/public/howto_jetty_basic_authentication.html</br>
