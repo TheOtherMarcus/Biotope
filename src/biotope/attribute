@@ -1,0 +1,7 @@
+(arg.value.(first(.)($$body)))
+(arg.vcol.(first(.)(rest(.)($$body))))
+(arg.relation.(first(.)(rest(.)(rest(.)($$body)))))
+(arg.name.(first(.)(rest(.)(rest(.)(rest(.)($$body))))))
+(arg.type.(rest(.)(rest(.)(rest(.)(rest(.)($$body))))))
+
+left join \(select r.h as h, v from ($$relation) r inner join ($$type) t on \(r.i = t.h\)\) as ($$name) on ($$name).h = ($$value).($$vcol)

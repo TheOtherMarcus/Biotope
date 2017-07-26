@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  <meta charset="utf-8">
+  <style>(stem_style)</style>
+  <title>Återställ lösenord</title>
+  </head>
+  <body>
+
+  (stem_header.|| <a href="($quote$contexturl)/reset">Återställ lösenord</a>)
+    
+  <div class="intro">
+  <b>Återställ lösenord</b>
+  </div>
+    
+  <div class="main">
+  <p>Om du har glömt lösenordet kan du återställa lösenordet här. Ett
+  nytt lösenord skickas med epost.
+
+  <form action="/reset" method="post">
+    Användarnamn:
+    <input type="text" name="name" size="30"/>
+    <input class="submit" type="submit" value="Återställ lösenord"/>
+  </form>
+
+  (regex|($$p_result)|ok|<div class="info">Ett nytt löseord är skickat.</div>|)
+
+  (regex|($$p_result)|unknown|<div class="error">En användare med det namnet finns inte.</div>|)
+  </div>
+    
+  (stem_footer)
+  
+  </body>
+</html>

@@ -1,0 +1,109 @@
+
+div.main,
+div.intro,
+div.error,
+div.info,
+div.api,
+div.footer
+{
+   padding-left: 3em;
+   padding-right: 3em;
+}
+
+div.header
+{
+   margin-top: 0.1em;
+   margin-bottom: 0.1em;
+   font-size: small;
+   width: 100%;
+}
+
+span.right
+{
+   position: absolute;
+   right: 0.5em;
+}
+
+div.main
+{
+   margin-top: 1em;
+   margin-bottom: 2em;
+}
+
+div.error,
+div.info
+{
+   margin-bottom: 1em;
+}
+
+div.error,
+div.info,
+div.api,
+div.footer
+{
+   margin-top: 1em;
+}
+
+div.intro,
+div.error,
+div.info,
+div.api,
+div.footer
+{
+   padding-top: 1em;
+   padding-bottom: 1em;
+}
+
+div.intro,
+div.footer
+{
+   background-color: rgba\(255,153,0,0.1\);
+}
+
+div.error
+{
+   background-color: rgba\(255,0,0,0.1\);
+}
+
+div.info
+{
+   background-color: rgba\(0,255,0,0.2\);
+}
+
+div.api
+{
+   background-color: rgba\(255,201,0,0.1\);
+}
+
+div.footer
+{
+   margin-top: auto;
+}
+
+html
+{
+   height: 100%
+}
+   
+body
+{
+   min-height: 98%;
+   display: flex;
+   flex-direction: column;
+}
+
+a
+{
+   color: rgb\(201, 102, 0\);
+}
+
+input
+{
+   background-color: rgba\(201, 102, 0, 0.05\);
+}
+
+input.submit
+{
+   background-color: rgba\(201, 102, 0, 0.2\);
+}
+

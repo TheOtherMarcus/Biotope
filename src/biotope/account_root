@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  <meta charset="utf-8">
+  <style>(stem_style)</style>
+  <title>Konto</title>
+  </head>
+  <body>
+
+  (stem_header.|| <a href="($quote$contexturl)/account">Konto</a>)
+    
+  <div class="intro">  
+  <b>Konto - </b>($html$principal)
+  </div>
+
+  <div class="main">
+  <b>Byt lösenord</b>
+
+  <form autocomplete="off" action="account" method="post">
+    <p>
+    <input style="display:none" type="password" name="pwdautofill"/>
+    <input type="hidden" name="op" value="chpwd"/>
+    Lösenord:<br>
+    <input type="password" name="pwd"/><br>
+    Nytt lösenord:<br>
+    <input type="password" name="npwd1"/><br>
+    Nytt lösenord igen:<br>
+    <input type="password" name="npwd2"/>
+    <input class="submit" type="submit" value="Byt l&ouml;senord"/>
+  </form>
+  
+  (regex|($$p_result)|ok|<div class="info">Lösenordet är ändrat.</div>|)
+
+  (regex|($$p_result)|wrongpwd|<div class="error">Bytet misslyckades:
+  Fel lösenord.</div>|)
+
+  (regex|($$p_result)|pwdmismatch|<div class="error">Bytet misslyckades:
+  De två nya lösenorden måste vara lika.</div>|)
+  </div>
+
+  (stem_footer)
+  
+  </body>
+</html>

@@ -1,0 +1,7 @@
+(arg.entity.(first(.)($$body)))
+(arg.ecol.(first(.)(rest(.)($$body))))
+(arg.relation.(first(.)(rest(.)(rest(.)($$body)))))
+(arg.name.(first(.)(rest(.)(rest(.)(rest(.)($$body))))))
+(arg.type.(rest(.)(rest(.)(rest(.)(rest(.)($$body))))))
+
+left join \(select r.a as a, v from ($$relation) r inner join ($$type) t on \(r.h = t.h\)\) as ($$name) on ($$name).a = ($$entity).($$ecol)

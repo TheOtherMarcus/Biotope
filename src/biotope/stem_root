@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  <meta charset="utf-8">
+  <style>(stem_style)</style>
+  <title>Biotopen</title>
+  </head>
+  <body>
+
+  (stem_header)
+    
+  (regex|($$url)|/401|
+  <div class="error">
+    <b>Inloggningen misslyckades.</b> Om du skrev fel lösenord kan du försöka igen.
+    <p>Om du har glömt lösenordet kan du <a href="($quote$contexturl)/reset">återställa</a> det.
+  </div>|)
+
+  <div class="intro">  
+  <b>Biotopen -</b> Applikationsserver för lagring, presentation och
+  bearbetning av information. Abstrakta entiteter och digitala värden
+  länkas samman i relationer. Alla förändringar i relationerna bokförs
+  i en distribuerad log, vilken kontinuerligt speglas i
+  PostgreSQL. Värden lagras i separata arkiv eller direkt i
+  loggen. Även makrot som genererar denna sida är ett värde i ett
+  arkiv som lokaliseras med den unära relationen ($html$self)01c1.
+
+  <p>Jetty används för att härbärgera de Java-servlets som producerar
+  innehåll för webben. En central servlet är Biotope, som är en
+  kraftfull makrointerpretator med stöd för SQL, regex-matchning och
+  funktionell abstraktion. En annan viktig servlet är Logger, som gör
+  det möjligt att ändra i relationer mellan entiteter och värden via
+  HTTP POST. Information raderas aldrig från loggen eller spegeln i
+  PostgreSQL vilket gör det enkelt att förflytta sig bakåt i tiden
+  eller ångra historiska misstag.
+  </div>
+
+  <div class="main">
+  <b>Huvudtjänster</b>
+
+  <p>
+  <b><a href="/family">Familjealbum</a></b> - Släkten Andersson Tholén
+  i text och bild.
+
+  <p>
+  <b><a href="/familytree">Sl&auml;kttr&auml;d</a></b> - Släkten Andersson Tholén
+  i graphviz format.
+
+  <p>
+  <b><a href="/jpeg">Fotolabbet</a></b> - Beskär, rotera och ändra
+  storlek på bilder.
+  
+  <p>
+  <b><a href="/graphviz">Grafgenerator</a></b> - Skapa grafer fr&aring;n graphviz specifikationer.
+  
+  <p>
+  <b><a href="/exif">EXIF Extraktor</a></b> - Extrahera EXIF data ur bilder.
+  </div>
+  
+  <div class="main">
+  <b>Stamtjänster</b>
+
+  <p>
+  <b><a href="(location.schema_png)">Databasschema</a></b> - Visa databasens relationer.
+
+  <p>
+  <b><a href="/logger">Logga</a></b> - Ändra och ångra ändringar i
+  relationer mellan entiteter och värden.
+
+  <p>
+  <b><a href="/archiver">Arkivera</a></b> - Lagra värden i det lokala
+  arkivet.
+
+  <p>
+  <b><a href="/archive">Arkiv</a></b> - Hämta värden från det lokala
+  arkivet.
+
+  <p>
+  <b><a href="/account">Konto</a></b> - Ändra lösenord.
+
+  <p>
+  <b><a href="/reset">Återställ lösenord</a></b> - Om du har glömt det.
+  </div>
+
+  (stem_footer)
+  
+  </body>
+</html>

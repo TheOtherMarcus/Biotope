@@ -1,0 +1,7 @@
+<div class="header">
+||
+<a href="($quote$contexturl)/biotope">Biotopen</a>
+($$body)
+||
+<span class="right">(query|('select now() as [t])|('($html$t))|)</span>
+</div>

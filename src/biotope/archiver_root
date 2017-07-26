@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  <meta charset="utf-8">
+  <style>(stem_style)</style>
+  <title>Arkivera</title>
+  </head>
+  <body>
+
+  (stem_header.|| <a href="($quote$contexturl)/archiver">Arkivera</a>)
+    
+  <div class="intro">
+  <b>Arkivera -</b> Lagra värden i det lokala arkivet eller i loggen.
+  </div>
+
+  <div class="api">
+  Skicka värdet i request body. Värdets digest \(sha256\) skickas
+  som svar.
+
+  <p><b>- Lagra värdet i det lokala arkivet -</b>
+  <p>POST ($html$rooturl)/&lt;partition&gt;?m=image/jpeg
+
+  <p><b>- Lagra värdet i den lokala loggen -</b>
+  <p>POST ($html$rooturl)/&lt;partition&gt;?m=text/plain&amp;d=log
+
+  <p>Värden som kan lagras i loggen är alltid text kodad som
+  UTF-8. Värdet lagras i relationen text_value.
+
+    <br>- Mimetype text/date lagras även i relationen date_value.
+    <br>- Mimetype text/timestamp lagras även i relationen timestamp_value.
+    <br>- Mimetype text/number lagras även i relationen number_value.
+  </div>
+
+  (stem_footer)
+
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>	
+  <meta charset="utf-8">
+  <style>(stem_style)</style>
+  <title>Logger</title>
+  </head>
+  <body>
+
+  (stem_header.|| <a href="($quote$contexturl)/logger">Logger</a>)
+    
+  <div class="api">
+    <b>Partition: ($html$url)</b>
+  </div>
+
+  <div class="main">
+    (foreach|(httpget.($$contexturl)/logger?p=($$url))|
+      ('(regex;($$partition);.+;
+        ('<a href="($quote$contexturl)/logger/($quote$partition)">($html$partition)</a>);))
+      ('(regex;($$entry);.+;
+        ('<a href="($quote$contexturl)/logger($quote$url)/($quote$entry)">($html$entry)</a>);))
+    |<br>)
+  </div>
+
+  <div class="intro">  
+  <b>Logger -</b> Ändra och ångra ändrigar i relationer mellan
+  entiteter och värden.
+  </div>
+
+  <div class="api">
+  <b>- Ändra i relationer -</b>
+  <p>Skicka JSON data i request body. Ändringens URL skickas som svar.
+  <p>POST ($html$rooturl)/&lt;partition&gt;
+
+  <p><b>- Lista och läs ändringar -</b>
+  <p>GET ($html$rooturl)[/&lt;partition&gt;[/&lt;hash&gt;]]
+
+  <p><b>- Ångra en ändring -</b>
+  <p>DELETE ($html$rooturl)/&lt;partition&gt;/&lt;hash&gt;
+  <p>Notera att ändringen i sig inte kommer att raderas. Istället
+  kommer inversen av ändringen att skrivas som en ny ändring för att
+  ta ut effekten av den ångrade ändringen.
+  </div>
+
+  (stem_footer)
+  
+  </body>
+</html>
