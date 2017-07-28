@@ -98,9 +98,7 @@ sudo apt-get install python-psycopg2
 Install the default content.
 
 ```
-cd src
 make
-cd ..
 ```
 
 Install GraphViz.
