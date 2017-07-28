@@ -55,7 +55,7 @@ sudo update-alternatives --config java
 Install the Biotope servlets in Jetty.
 
 ```
-cd biotope
+cd servlets
 ant deploy
 cd ..
 ```
