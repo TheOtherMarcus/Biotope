@@ -55,7 +55,7 @@ sudo update-alternatives --config java
 Install the Biotope servlets in Jetty.
 
 ```
-cd biotope
+cd servlets
 ant deploy
 cd ..
 ```
@@ -98,9 +98,7 @@ sudo apt-get install python-psycopg2
 Install the default content.
 
 ```
-cd src
 make
-cd ..
 ```
 
 Install GraphViz.
