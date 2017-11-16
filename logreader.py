@@ -170,7 +170,7 @@ if sys.argv[1] == '-r':
         
 # Connect to database
 try:
-    p = properties.read('biotope/web/WEB-INF/classes/biotope.properties')
+    p = properties.read('servlets/web/WEB-INF/classes/biotope.properties')
     conn=psycopg2.connect("host='{0}' dbname='{1}' user='{2}' password='{3}'".format(p['db.servername'], p['db.databasename'], p['db.user'], p['db.password']))
 except:
     print "I am unable to connect to the database."
