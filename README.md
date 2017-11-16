@@ -122,7 +122,7 @@ java -jar start.jar
 ```
 
 [#]: References
-[1]: http://formallanguage.blogspot.se/2015/02/a-distributed-and-extensible-relational.html</br>
-[2]: http://formallanguage.blogspot.se/2017/03/makron-macro-language-and-evaluator.html</br>
-[3]: http://www.eclipse.org/jetty/</br>
-[4]: http://whitehorseplanet.org/gate/topics/documentation/public/howto_jetty_basic_authentication.html</br>
+[1]: http://formallanguage.blogspot.se/2015/02/a-distributed-and-extensible-relational.html
+[2]: http://formallanguage.blogspot.se/2017/03/makron-macro-language-and-evaluator.html
+[3]: http://www.eclipse.org/jetty/
+[4]: http://whitehorseplanet.org/gate/topics/documentation/public/howto_jetty_basic_authentication.html
