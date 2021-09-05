@@ -25,6 +25,10 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import java.security.MessageDigest;
 
+import java.util.TimeZone;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class MetaProc extends HttpServlet {
 
     protected PGSimpleDataSource source;
@@ -183,5 +187,12 @@ public class MetaProc extends HttpServlet {
 	StringBuffer result = new StringBuffer();
 	for (byte byt : bytes) result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
 	return result.toString();
+    }
+
+    public static String now() {
+	TimeZone tz = TimeZone.getTimeZone("UTC");
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
+	df.setTimeZone(tz);
+	return df.format(new Date());
     }
 }

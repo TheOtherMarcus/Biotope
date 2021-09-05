@@ -23,12 +23,9 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.xml.bind.DatatypeConverter;
 
-import java.nio.file.StandardOpenOption;
-import java.nio.file.Files;
+import java.util.List;
 
 public class Streamer extends HttpServlet {
-
-    String sensorsroot;
 
     public String getContextURL(HttpServletRequest request)
     {
@@ -54,16 +51,20 @@ public class Streamer extends HttpServlet {
 
     private class Worker implements Runnable {
 
-	private String sensorpath;
+	private String sensor;
 	private AsyncContext asyncContext;
 	long filePointer;
 	int timeout;
 	Date start;
+	Counter counter;
+	int interval;
 	
-	public Worker(String sensorpath, Date start, int timeout, AsyncContext asyncContext) {
-	    this.sensorpath = sensorpath;
+	public Worker(String sensor, Date start, int timeout, Counter counter, int interval, AsyncContext asyncContext) {
+	    this.sensor = sensor;
 	    this.start = start;
 	    this.timeout = timeout;
+	    this.counter = counter;
+	    this.interval = interval;
 	    this.asyncContext = asyncContext;
 	}
 
@@ -77,10 +78,10 @@ public class Streamer extends HttpServlet {
 		Date last = new Date(start.getTime()-1);
 
 		// Start with legend
-		SensorLog.pushLegend(sensorpath, out);
+		SensorLog4.pushLegend(sensor, out);
 		
 		while (dataUnchangedSeconds < timeout) {
-		    Date time = SensorLog.pushLog(sensorpath, last, out);
+		    Date time = SensorLog4.pushLog(sensor, last, counter, interval, out);
 		    if (time.getTime() > last.getTime()) {
 			dataUnchangedSeconds = 0;
 			last = time;
@@ -88,7 +89,10 @@ public class Streamer extends HttpServlet {
 		    else {
 			dataUnchangedSeconds++;
 		    }
-		    Thread.sleep(1000);
+		    if (counter != null && counter.count == 0) {
+			break;
+		    }
+		    Thread.sleep(5000);
 		}
 	    }
 	    catch (Exception e) {
@@ -107,26 +111,15 @@ public class Streamer extends HttpServlet {
 	String sensor = request.getParameter("sensor");
 	String start = request.getParameter("start");
 	String timeout = request.getParameter("timeout");
+	String count = request.getParameter("count");
+	String interval = request.getParameter("interval");
 	if (sensor == null) {
-	    File f = new File(sensorsroot);
-	    File[] files = f.listFiles();
-	    Arrays.sort(files, new Comparator<File>(){
-		    public int compare(File f1, File f2)
-		    {
-			return f2.getName().compareTo(f1.getName());
-		    }
-		});
-	    for (File file : files) {
-		if (file.isFile() && file.getName().endsWith(".sqlite")) {
-		    try {
-			String filename = file.getName();
-			String sensorname = filename.substring(0, filename.length() - 7);
-			response.getOutputStream()
-			    .write(("<a href=\"" + getRootURL(request) + "?sensor=" +
-				    URLEncoder.encode(sensorname, "UTF-8") + "\">" +
-				    escapeHtml4(sensorname) + "</a><br>").getBytes("UTF-8"));
-		    } catch (Exception e) { e.printStackTrace(); }
-		}
+	    List<String> sensors = SensorLog4.getSensors();
+	    for (String sensorname : sensors) {
+		response.getOutputStream()
+		    .write(("<a href=\"" + getRootURL(request) + "?sensor=" +
+			    URLEncoder.encode(sensorname, "UTF-8") + "\">" +
+			    escapeHtml4(sensorname) + "</a><br>").getBytes("UTF-8"));
 	    }
 	}
 	else {
@@ -137,16 +130,26 @@ public class Streamer extends HttpServlet {
 	    if (sensor.lastIndexOf('/') != -1) {
 		sensor = sensor.substring(sensor.lastIndexOf('/'));
 	    }
-	    Date startDate = new Date();
+	    Date startDate = null;
 	    if (start != null) {
 		startDate = DatatypeConverter.parseDateTime(start).getTime();
+	    }
+	    else {
+		startDate = new Date(SensorLog4.getTime(sensor));
 	    }
 	    int tmout = 10*60;
 	    if (timeout != null) {
 		tmout = Integer.parseInt(timeout);
 	    }
-	    String sensorpath = sensorsroot + "/" + sensor;
-	    asyncContext.start(new Worker(sensorpath, startDate, tmout, asyncContext));
+	    Counter counter = null;
+	    if (count != null) {
+		counter = new Counter(Integer.parseInt(count));
+	    }
+	    int ival = 1;
+	    if (interval != null) {
+		ival = Integer.parseInt(interval);
+	    }
+	    asyncContext.start(new Worker(sensor, startDate, tmout, counter, ival, asyncContext));
 	    System.out.println("Tracking " + sensor);
 	}
     }
@@ -170,6 +173,7 @@ public class Streamer extends HttpServlet {
 	String id = request.getParameter("id");
 	String legend = request.getParameter("legend");
 	String value = request.getParameter("value");
+	String time = request.getParameter("time");
 	
 	if (id == null) {
 	    throw new ServletException("Missing parameter 'id'.");
@@ -184,8 +188,7 @@ public class Streamer extends HttpServlet {
 	System.out.println("\npost " + id + " " + legend + " " + value);
 	
 	// Write to database
-	SensorLog.log(sensorsroot + "/" + "protocol=post_id=" + id,
-		      legend, value);
+	SensorLog4.log("http_" + id, legend, value, time);
 	
 	response.getOutputStream().write("OK\n".getBytes("UTF-8"));
 	response.getOutputStream().flush();
@@ -195,6 +198,6 @@ public class Streamer extends HttpServlet {
     {
 	super.init(config);
 
-	sensorsroot = getServletContext().getInitParameter("sensorsroot");
+	SensorLog4.sensorsroot = getServletContext().getInitParameter("sensorsroot");
     } 
 }

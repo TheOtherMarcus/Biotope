@@ -59,56 +59,10 @@ public final class RFBridge extends MetaProc {
 	
 	InputStream in;
 	OutputStream out;
-	String sensorsroot;
 	
-	public SerialReader( InputStream in, OutputStream out, String sensorsroot ) {
+	public SerialReader( InputStream in, OutputStream out) {
 	    this.in = in;
 	    this.out = out;
-	    this.sensorsroot = sensorsroot;
-	}
-	
-	private int parsePulses(String msg, int start, int length, String zero, String one)
-	    throws IOException {
-	    int value = 0;
-	    msg = msg.substring(start * zero.length());
-	    for (int bits = 0; bits < length; bits++) {
-		if (msg.startsWith(zero)) {
-		    value = value << 1;
-		    msg = msg.substring(zero.length());
-		}
-		else if (msg.startsWith(one)) {
-		    value = (value << 1) + 1;
-		    msg = msg.substring(one.length());
-		}
-		else {
-		    throw new IOException("Wrong message format");
-		}
-	    }
-	    return value;
-	}
-	
-	private void weather1(String msg) throws IOException {
-	    if (msg.length() != 74) return;
-	    // Extract data fields
-	    int id, battery, channel, temperature, humidity;
-	    try {
-		id = parsePulses(msg, 4, 8, "01", "02");
-		battery = parsePulses(msg, 12, 2, "01", "02");
-		channel = parsePulses(msg, 14, 2, "01", "02");
-		temperature = parsePulses(msg, 16, 12, "01", "02");
-		humidity = parsePulses(msg, 28, 8, "01", "02");
-	    } catch (IOException e) {
-		return;
-	    }
-
-	    System.out.println("\nweather1 " + id + " " + channel + " " + battery + " " + temperature + " " + humidity);
-
-	    // Write to database
-	    SensorLog.log(sensorsroot + "/" + "protocol=weather1_id=" + id + "_channel=" + channel,
-			  ":battery:temperature:humidity",
-			  battery + " " +
-			  temperature / 10  + "." + temperature % 10 + " " +
-			  humidity);
 	}
 	
 	public void run() {
@@ -152,8 +106,13 @@ public final class RFBridge extends MetaProc {
 				for (int i = 0; i < tokens[10].length(); i++) {
 				    msg += periods[Integer.parseInt(tokens[10].substring(i, i+1))];
 				}
-				// Supported devices
-				weather1(msg);
+				// Iterate over supported protocols
+				for (RFProtocol protocol : RFProtocol.protocols.values()) {
+				    try {
+					System.out.println(protocol.process(msg));
+					break;
+				    } catch (IOException e) {}
+				}
 			    }
 			}
 		    }
@@ -175,7 +134,7 @@ public final class RFBridge extends MetaProc {
     {
 	super.init(config);
 
-	sensorsroot = getServletContext().getInitParameter("sensorsroot");
+	SensorLog4.sensorsroot = getServletContext().getInitParameter("sensorsroot");
 
 	try {
 	    String port = getServletContext().getInitParameter("homeduinoport");;
@@ -196,7 +155,7 @@ public final class RFBridge extends MetaProc {
 		    in = serialPort.getInputStream();
 		    out = serialPort.getOutputStream();
 
-		    ( new Thread( new SerialReader(in, out, sensorsroot) ) ).start();
+		    ( new Thread( new SerialReader(in, out) ) ).start();
 		    
 		} else {
 		    System.out.println("Error: Only serial ports are handled.");

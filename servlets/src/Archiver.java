@@ -28,10 +28,6 @@ import java.security.MessageDigest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.TimeZone;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -117,10 +113,7 @@ public final class Archiver extends MetaProc {
 	    String digest = getSha256(out.toByteArray());
 	    JSONArray log = new JSONArray();
 	    JSONObject o;
-	    TimeZone tz = TimeZone.getTimeZone("UTC");
-	    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
-	    df.setTimeZone(tz);
-	    String now = df.format(new Date());
+	    String now = now();
 	    String destination = request.getParameter("d");
 	    String redirect = request.getParameter("r");
 	    if (destination != null && destination.equals("log")) {
